@@ -18,6 +18,8 @@
             --text-primary: #0f172a;
             --text-secondary: #475569;
             --text-muted: #64748b;
+            --success: #10b981;
+            --info: #3b82f6;
         }
 
         * {
@@ -134,17 +136,17 @@
         }
 
         .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
             margin-top: 2rem;
         }
 
         .project-card {
             background: var(--background);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem;
+            border-radius: 16px;
+            padding: 2.5rem;
             transition: all 0.3s ease;
             position: relative;
         }
@@ -155,33 +157,148 @@
             border-color: var(--primary);
         }
 
+        .project-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
         .project-number {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
+            flex-shrink: 0;
+            width: 50px;
+            height: 50px;
             background: var(--primary);
             color: white;
-            border-radius: 8px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+
+        .project-title-section {
+            flex-grow: 1;
         }
 
         .project-card h3 {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.4rem;
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .meta-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .meta-tag svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .project-overview {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .project-details {
+            display: grid;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .detail-section {
+            background: var(--surface);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .detail-section h4 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
             font-weight: 600;
             color: var(--text-primary);
             margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .project-card p {
+        .detail-section h4 svg {
+            width: 18px;
+            height: 18px;
+            color: var(--primary);
+        }
+
+        .detail-section ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .detail-section li {
             color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-            line-height: 1.7;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .detail-section li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .skills-learned {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .skill-badge {
+            background: var(--background);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .skill-badge:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .project-footer {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
         }
 
         .project-link {
@@ -192,11 +309,17 @@
             text-decoration: none;
             font-weight: 600;
             transition: gap 0.2s;
+            padding: 0.75rem 1.5rem;
+            background: var(--surface);
+            border-radius: 8px;
+            border: 1px solid var(--border);
         }
 
         .project-link:hover {
             gap: 0.75rem;
-            color: var(--primary-dark);
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
         }
 
         .project-link::after {
@@ -259,7 +382,10 @@
                 font-size: 2.5rem;
             }
 
-            .project-grid,
+            .project-header {
+                flex-direction: column;
+            }
+
             .skills-grid {
                 grid-template-columns: 1fr;
             }
@@ -267,6 +393,10 @@
             .header-links {
                 flex-direction: column;
                 gap: 1rem;
+            }
+
+            .project-card {
+                padding: 1.5rem;
             }
         }
     </style>
@@ -303,16 +433,16 @@
                 <h2 class="section-title">About</h2>
                 <div class="about-content">
                     <p>
-                        I’m a cybersecurity professional with hands-on experience across IT support, security operations, and cloud-based 
-                        security projects. I’m especially interested in defensive security, cloud infrastructure, and the growing intersection between AI and cybersecurity.
+                        I'm a cybersecurity professional with hands-on experience across IT support, security operations, and cloud-based 
+                        security projects. I'm especially interested in defensive security, cloud infrastructure, and the growing intersection between AI and cybersecurity.
 
-                        I’ve worked in real-world environments where security isn’t theoretical — supporting endpoints, investigating anomalies,
+                        I've worked in real-world environments where security isn't theoretical — supporting endpoints, investigating anomalies,
                         hardening systems, and contributing to projects like cloud-hosted honeypots, automated security workflows, and threat analysis labs.
-                        Through internships and personal projects, I’ve built a strong foundation in Linux, networking, incident response, and security tooling,
+                        Through internships and personal projects, I've built a strong foundation in Linux, networking, incident response, and security tooling,
                         while continuously pushing myself to learn more advanced concepts.
                         
-                        I’m currently focused on continuing my growth in defensive and cloud security, with a long-term goal of working at the intersection
-                        of cybersecurity and AI. I’m looking for opportunities where I can contribute as a security analyst or cloud security engineer,
+                        I'm currently focused on continuing my growth in defensive and cloud security, with a long-term goal of working at the intersection
+                        of cybersecurity and AI. I'm looking for opportunities where I can contribute as a security analyst or cloud security engineer,
                         while continuing to build and refine security-first systems that emphasize detection, automation, and real-world resilience.
                     </p>
                 </div>
@@ -324,60 +454,161 @@
                 <h2 class="section-title">Projects</h2>
                 
                 <div class="project-grid">
+                    <!-- Project 1: T-Pot Honeypot -->
                     <div class="project-card">
-                        <div class="project-number">01</div>
-                        <h3>T-Pot Honeypot on AWS</h3>
-                        <p>
-                            Deployed and configured a multi-service T-Pot honeypot on AWS EC2 to capture real-world 
-                            cyber-attack traffic for research and analysis. Monitored attacker behavior and integrated 
-                            Elasticsearch, Logstash, and Kibana for real-time visualization and threat intelligence.
+                        <div class="project-header">
+                            <div class="project-number">01</div>
+                            <div class="project-title-section">
+                                <h3>T-Pot Honeypot on AWS</h3>
+                                <div class="project-meta">
+                                    <span class="meta-tag">
+                                        <svg fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                        </svg>
+                                        Cloud Security
+                                    </span>
+                                    <span class="meta-tag">
+                                        <svg fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                        </svg>
+                                        Threat Intelligence
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="project-overview">
+                            Deployed and configured a multi-service T-Pot honeypot environment on AWS EC2 to capture and analyze 
+                            real-world cyber-attack traffic. This project involved building a production-grade deception infrastructure 
+                            that attracts malicious actors, logs their behavior, and provides actionable threat intelligence. By integrating 
+                            the ELK stack (Elasticsearch, Logstash, Kibana), I created a comprehensive monitoring and visualization 
+                            pipeline to identify attack patterns, TTPs (Tactics, Techniques, and Procedures), and emerging threats.
                         </p>
-                        <a href="https://github.com/RobertRuizz/AWS-Honeypot-with-AI-forecast" class="project-link" target="_blank" rel="noopener">
-                            View Project
-                        </a>
+
+                        <div class="project-details">
+                            <div class="detail-section">
+                                <h4>
+                                    <svg fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                                    </svg>
+                                    Key Accomplishments
+                                </h4>
+                                <ul>
+                                    <li>Deployed T-Pot on AWS EC2 with proper security group configurations and network isolation</li>
+                                    <li>Configured multiple honeypot services including SSH, HTTP, and other protocols to simulate vulnerable systems</li>
+                                    <li>Integrated ELK stack for centralized logging and real-time attack visualization</li>
+                                    <li>Analyzed attack patterns, geolocation data, and adversary behavior to identify threat trends</li>
+                                    <li>Implemented automated alerts for high-severity attack indicators</li>
+                                </ul>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4>
+                                    <svg fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+                                    </svg>
+                                    Skills & Technologies Learned
+                                </h4>
+                                <div class="skills-learned">
+                                    <span class="skill-badge">AWS EC2</span>
+                                    <span class="skill-badge">T-Pot Honeypot</span>
+                                    <span class="skill-badge">Elasticsearch</span>
+                                    <span class="skill-badge">Logstash</span>
+                                    <span class="skill-badge">Kibana</span>
+                                    <span class="skill-badge">Linux System Administration</span>
+                                    <span class="skill-badge">Network Security</span>
+                                    <span class="skill-badge">Threat Intelligence</span>
+                                    <span class="skill-badge">Data Visualization</span>
+                                    <span class="skill-badge">Security Monitoring</span>
+                                    <span class="skill-badge">Incident Analysis</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-footer">
+                            <a href="https://github.com/RobertRuizz/AWS-Honeypot-with-AI-forecast" class="project-link" target="_blank" rel="noopener">
+                                View Project
+                            </a>
+                        </div>
                     </div>
 
+                    <!-- Project 2: NASA Lab Network -->
                     <div class="project-card">
-                        <div class="project-number">02</div>
-                        <h3>AI-Powered-Cloud-Threat-Detection</h3>
-                        <p>
-                            This project demonstrates an AI-driven approach to detecting security threats in cloud environments
-                            by analyzing system and network logs. Using Python and machine learning techniques, the system 
-                            identifies anomalous behavior that may indicate unauthorized access, lateral movement, or malicious activity.
-                            
-                            The project simulates real-world cloud security monitoring workflows, emphasizing defensive security, automation, and
-                            scalable detection methods.The goal of this project is to showcase how AI can enhance traditional
-                            cloud security operations by improving visibility, reducing manual analysis, and enabling faster incident detection and response.
-                        </p>
-                        <a href="https://github.com/yourusername/servicenow-automation" class="project-link" target="_blank" rel="noopener">
-                            View Project
-                        </a>
-                    </div>
+                        <div class="project-header">
+                            <div class="project-number">02</div>
+                            <div class="project-title-section">
+                                <h3>Lab Network Design - NASA</h3>
+                                <div class="project-meta">
+                                    <span class="meta-tag">
+                                        <svg fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                        </svg>
+                                        Network Architecture
+                                    </span>
+                                    <span class="meta-tag">
+                                        <svg fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                        </svg>
+                                        Hardware Integration
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
 
-                    <div class="project-card">
-                        <div class="project-number">03</div>
-                        <h3>Phishing Simulation Campaign</h3>
-                        <p>
-                            Designed and deployed phishing email simulations using Proofpoint to assess employee security 
-                            awareness and phishing resilience. Analyzed results to inform future security training efforts 
-                            and improve organizational security posture.
+                        <p class="project-overview">
+                            Designed and implemented a secure, segmented lab network architecture at NASA to support research and development 
+                            operations involving multiple computer interfaces and hardware systems. This project focused on creating a robust, 
+                            isolated network environment that enables secure multi-endpoint access while maintaining strict separation between 
+                            different research components. The infrastructure supports Linux-based NVIDIA Jetson systems and provides reliable 
+                            communication frameworks for advanced hardware testing.
                         </p>
-                        <a href="https://github.com/yourusername/phishing-sim" class="project-link" target="_blank" rel="noopener">
-                            View Project
-                        </a>
-                    </div>
 
-                    <div class="project-card">
-                        <div class="project-number">04</div>
-                        <h3>Lab Network Design - NASA</h3>
-                        <p>
-                            Designed a segmented lab network architecture at NASA supporting multiple computer interfaces 
-                            for secure multi-endpoint access. Configured static IP addressing on Linux-based NVIDIA Jetson 
-                            systems and developed an Ethernet command framework for hardware communication.
-                        </p>
-                        <a href="https://github.com/RobertRuizz/NASA-Internship-Project" class="project-link" target="_blank" rel="noopener">
-                            View Project
-                        </a>
+                        <div class="project-details">
+                            <div class="detail-section">
+                                <h4>
+                                    <svg fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                                    </svg>
+                                    Key Accomplishments
+                                </h4>
+                                <ul>
+                                    <li>Architected a segmented network topology with multiple isolated subnets for different research functions</li>
+                                    <li>Configured static IP addressing on Linux-based NVIDIA Jetson systems to ensure consistent connectivity</li>
+                                    <li>Developed a custom Ethernet command framework for reliable hardware-to-hardware communication</li>
+                                    <li>Implemented network security controls to prevent unauthorized access between segments</li>
+                                    <li>Documented network diagrams, IP allocation schemes, and configuration procedures for future maintenance</li>
+                                    <li>Conducted testing and validation to ensure network reliability under various operational scenarios</li>
+                                </ul>
+                            </div>
+
+                            <div class="detail-section">
+                                <h4>
+                                    <svg fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+                                    </svg>
+                                    Skills & Technologies Learned
+                                </h4>
+                                <div class="skills-learned">
+                                    <span class="skill-badge">Network Architecture</span>
+                                    <span class="skill-badge">Network Segmentation</span>
+                                    <span class="skill-badge">Linux Administration</span>
+                                    <span class="skill-badge">NVIDIA Jetson</span>
+                                    <span class="skill-badge">Static IP Configuration</span>
+                                    <span class="skill-badge">Ethernet Protocols</span>
+                                    <span class="skill-badge">Hardware Communication</span>
+                                    <span class="skill-badge">Network Security</span>
+                                    <span class="skill-badge">Technical Documentation</span>
+                                    <span class="skill-badge">System Integration</span>
+                                    <span class="skill-badge">Troubleshooting</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-footer">
+                            <a href="https://github.com/RobertRuizz/NASA-Internship-Project" class="project-link" target="_blank" rel="noopener">
+                                View Project
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
